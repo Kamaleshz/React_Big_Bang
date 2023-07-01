@@ -1,5 +1,6 @@
 ﻿using HospitalBB.Models;
 using HospitalBB.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,7 @@ namespace HospitalBB.Controller
             _patientRepository = patientRepository;
         }
 
+        [Authorize(Roles ="Doctor,Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatient()
         {
@@ -29,6 +31,8 @@ namespace HospitalBB.Controller
                 return StatusCode(500, $"Error retrieving patients: {ex.Message}");
             }
         }
+
+        [Authorize(Roles = "Doctor,Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatientById(int id)
         {
@@ -62,6 +66,7 @@ namespace HospitalBB.Controller
             return Created("Get", createdPatient);
         }
 
+        [Authorize(Roles ="Patient,Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<int>> UpdatePatient(int id, Patient patient)
         {
@@ -85,6 +90,7 @@ namespace HospitalBB.Controller
                 return StatusCode(500, $"Error updating patient: {ex.Message}");
             }
         }
+        [Authorize(Roles ="Patient,Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<int>> DeletePatient(int id)
         {
