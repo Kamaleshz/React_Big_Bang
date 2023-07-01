@@ -20,7 +20,6 @@ namespace HospitalBB.Models
         public Doctor? Doctor { get; set; }
 
         public Patient? Patient { get; set; }
-        sjdbv
         public ICollection<Patient>? Patients { get; set; }
     }
 }
