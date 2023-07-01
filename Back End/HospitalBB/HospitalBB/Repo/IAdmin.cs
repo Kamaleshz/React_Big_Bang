@@ -7,3 +7,4 @@ namespace HospitalBB.Repo
         Task<Admin>CreateAdmin(Admin admin);
     }
 }
+    

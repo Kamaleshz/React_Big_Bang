@@ -65,6 +65,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<HospitalBBContextClass>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("Connection")));
 builder.Services.AddScoped<IDoctor, DoctorRepo>();
 builder.Services.AddScoped<IPatient, PatientRepo>();
+builder.Services.AddScoped<IAdmin, AdminRepo>();
+
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling =

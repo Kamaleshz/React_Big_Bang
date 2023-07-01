@@ -52,7 +52,7 @@ namespace HospitalBB.Controller
         {
             var createdPatient = await _patientRepository.CreatePatient(patient);
 
-            if (createdPatient == null)
+            if (createdPatient == null) 
             {
                 return Problem("Failed to create patient.");
             }

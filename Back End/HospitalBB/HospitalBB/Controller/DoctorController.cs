@@ -1,5 +1,6 @@
 ﻿using HospitalBB.Models;
 using HospitalBB.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
