@@ -18,7 +18,7 @@ namespace HospitalBB.Controller
             this.doctor = doctor;
 
         }
-        [Authorize(Roles ="Doctor,Admin,Patient")]
+        //[Authorize(Roles ="Doctor,Admin,Patient")]
         [HttpGet]
         public IEnumerable<Doctor>? Get()
         {
@@ -52,7 +52,7 @@ namespace HospitalBB.Controller
             }
         }
 
-        [Authorize(Roles = "Doctor,Admin")]
+        //[Authorize(Roles = "Doctor,Admin")]
         [HttpPut("{DocId}")]
         public async Task<ActionResult<Doctor>> Put(int DocId, [FromForm] Doctor doc, IFormFile imageFile)
         {
@@ -73,7 +73,7 @@ namespace HospitalBB.Controller
             }
         }
 
-        [Authorize(Roles = "Doctor,Admin")]
+        //[Authorize(Roles = "Doctor,Admin")]
         [HttpDelete("{Doctor_Id}")]
         public Doctor? DeleteCake(int Doctor_Id)
         {
