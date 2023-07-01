@@ -13,6 +13,8 @@ namespace HospitalBB.Models
 
         public int DocId { get; set; }
 
+        public string? Issue { get; set; }
+
         public bool IsConfirmed { get; set; }
 
         public Doctor? Doctor { get; set; }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalBB.Models
 {
@@ -6,7 +7,10 @@ namespace HospitalBB.Models
     {
         [Key]
 
-        public int PatID { get; set; }
+        public int PatId { get; set; }
+
+        [ForeignKey("DocId")]
+        public int DocId { get; set; }
 
         public string? PatName { get; set; }
 
@@ -19,6 +23,8 @@ namespace HospitalBB.Models
         public string? PatGender { get; set; }
 
         public int? Age { get; set; }
+
+        public string? PatIssue { get; set; }
 
         public Doctor? Doctors { get; set; }
 
