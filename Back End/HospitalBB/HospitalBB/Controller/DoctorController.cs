@@ -1,4 +1,5 @@
 ﻿using HospitalBB.Models;
+using HospitalBB.Models.DTO;
 using HospitalBB.Repo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ namespace HospitalBB.Controller
             return doctor.GetDoctors();
         }
 
-        [Authorize(Roles = "Doctor,Admin,Patient")]
+        //[Authorize(Roles = "Doctor,Admin,Patient")]
         [HttpGet("{Doctor_Id}")]
         public Doctor? Doctor_Id(int Doctor_Id)
         {
@@ -78,6 +79,50 @@ namespace HospitalBB.Controller
         public Doctor? DeleteCake(int Doctor_Id)
         {
             return doctor.DeleteDoctor(Doctor_Id);
+        }
+
+        [HttpPut("Update status")]
+        public async Task<ActionResult<UpdateStatus>> UpdateStatus(UpdateStatus status)
+        {
+            var result = await doctor.UpdateStatus(status);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+        [HttpPut("Decline Doctor")]
+        public async Task<ActionResult<UpdateStatus>> UpdateDeclineStatus(UpdateStatus status)
+        {
+            var result = await doctor.DeclineDoctorStatus(status);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("Requested status")]
+        public async Task<ActionResult<UpdateStatus>> GetRequestedDoctors()
+        {
+            var result = await doctor.RequestedDoctor();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("Accepted status")]
+        public async Task<ActionResult<UpdateStatus>> GetAcceptedDoctors()
+        {
+            var result = await doctor.AcceptedDoctor();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
         }
     }
 }

@@ -67,6 +67,15 @@ builder.Services.AddScoped<IDoctor, DoctorRepo>();
 builder.Services.AddScoped<IPatient, PatientRepo>();
 builder.Services.AddScoped<IAdmin, AdminRepo>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Corspolicy", builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling =
@@ -84,6 +93,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+app.UseCors("Corspolicy");
+app.UseStaticFiles();
 
 app.MapControllers();
 

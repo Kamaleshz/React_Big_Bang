@@ -1,4 +1,5 @@
 ﻿using HospitalBB.Models;
+using HospitalBB.Models.DTO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace HospitalBB.Repo
             _hospContext = con;
             _webHostEnvironment = webHostEnvironment;
         }
+
 
         public IEnumerable<Doctor> GetDoctors()
         {
@@ -117,5 +119,60 @@ namespace HospitalBB.Repo
                 return null;
             }
         }
+        public async Task<UpdateStatus> UpdateStatus(UpdateStatus status)
+        {
+            var doc = await _hospContext.Doctors.FirstOrDefaultAsync(s => s.DocId == status.id);
+            if (doc != null)
+            {
+                if (doc.Status == "Not Admitted")
+                {
+                    doc.Status = "Admitted";
+                    await _hospContext.SaveChangesAsync();
+                    return status;
+                }
+                return status;
+
+            }
+            return null;
+        }
+
+        public async Task<UpdateStatus> DeclineDoctorStatus(UpdateStatus status)
+        {
+            var doc = await _hospContext.Doctors.FirstOrDefaultAsync(s => s.DocId == status.id);
+            if (doc != null)
+            {
+                if (doc.Status == "Not Admitted")
+                {
+                    doc.Status = "Declined";
+                    await _hospContext.SaveChangesAsync();
+                    return status;
+                }
+                return status;
+
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>> RequestedDoctor()
+        {
+            var doc = await _hospContext.Doctors.Where(s => s.Status == "Not Admitted").ToListAsync();
+            if (doc != null)
+            {
+                return doc;
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Doctor>> AcceptedDoctor()
+        {
+            var doc = await _hospContext.Doctors.Where(s => s.Status == "Admitted").ToListAsync();
+            if (doc != null)
+            {
+                return doc;
+            }
+            return null;
+        }
     }
+
+
 }
