@@ -1,4 +1,5 @@
 ﻿using HospitalBB.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace HospitalBB.Controller
 {
+    [EnableCors("Corspolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
@@ -129,7 +131,7 @@ namespace HospitalBB.Controller
                 new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("Admin_Id", "1"), // Set the admin ID accordingly
+                new Claim("Admin_Id", "1"),
                 new Claim("AdminName", staffData.AdminName),
                 new Claim("AdminPassword", staffData.AdminPassword),
                 new Claim(ClaimTypes.Role, AdminRole)

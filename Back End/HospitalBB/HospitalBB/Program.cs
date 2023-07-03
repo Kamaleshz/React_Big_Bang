@@ -90,10 +90,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+app.UseCors("Corspolicy");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
-app.UseCors("Corspolicy");
 app.UseStaticFiles();
 
 app.MapControllers();

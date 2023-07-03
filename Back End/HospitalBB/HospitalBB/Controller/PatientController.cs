@@ -1,11 +1,13 @@
 ﻿using HospitalBB.Models;
 using HospitalBB.Repo;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalBB.Controller
 {
+    [EnableCors("Corspolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class PatientController : ControllerBase

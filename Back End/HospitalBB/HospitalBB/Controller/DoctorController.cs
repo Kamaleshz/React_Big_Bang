@@ -2,11 +2,13 @@
 using HospitalBB.Models.DTO;
 using HospitalBB.Repo;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitalBB.Controller
 {
+    [EnableCors("Corspolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorController : ControllerBase
@@ -19,7 +21,7 @@ namespace HospitalBB.Controller
             this.doctor = doctor;
 
         }
-        [Authorize(Roles ="Doctor,Admin,Patient")]
+        //[Authorize(Roles ="Doctor,Admin,Patient")]
         [HttpGet]
         public IEnumerable<Doctor>? Get()
         {
@@ -81,7 +83,7 @@ namespace HospitalBB.Controller
             return doctor.DeleteDoctor(Doctor_Id);
         }
 
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         [HttpPut("Update status")]
         public async Task<ActionResult<UpdateStatus>> UpdateStatus(UpdateStatus status)
         {
