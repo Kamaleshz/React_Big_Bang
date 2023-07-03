@@ -17,7 +17,7 @@ namespace HospitalBB.Controller
             _patientRepository = patientRepository;
         }
 
-       // [Authorize(Roles ="Doctor,Admin")]
+        [Authorize(Roles ="Doctor,Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Patient>>> GetPatient()
         {
@@ -32,7 +32,7 @@ namespace HospitalBB.Controller
             }
         }
 
-       // [Authorize(Roles = "Doctor,Admin")]
+        [Authorize(Roles = "Doctor,Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatientById(int id)
         {
@@ -60,13 +60,10 @@ namespace HospitalBB.Controller
             {
                 return Problem("Failed to create patient.");
             }
-
-            //return CreatedAtAction("GetPatient", new { id = createdPatient.patient_id }, createdPatient);
-            //return CreatedAtAction("Get", new { id = createdCourse.doctor_id }, createdCourse);
             return Created("Get", createdPatient);
         }
 
-        //[Authorize(Roles ="Patient,Admin")]
+        [Authorize(Roles ="Patient,Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<int>> UpdatePatient(int id, Patient patient)
         {
@@ -90,7 +87,7 @@ namespace HospitalBB.Controller
                 return StatusCode(500, $"Error updating patient: {ex.Message}");
             }
         }
-        //[Authorize(Roles ="Patient,Admin")]
+        [Authorize(Roles ="Patient,Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<int>> DeletePatient(int id)
         {

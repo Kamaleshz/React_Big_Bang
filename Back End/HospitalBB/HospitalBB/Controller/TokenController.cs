@@ -120,18 +120,18 @@ namespace HospitalBB.Controller
         [HttpPost("Admin")]
         public async Task<IActionResult> PostStaff(Admin staffData)
         {
-            if (staffData != null && !string.IsNullOrEmpty(staffData.AdminEmail) && !string.IsNullOrEmpty(staffData.AdminPassword))
+            if (staffData != null && !string.IsNullOrEmpty(staffData.AdminName) && !string.IsNullOrEmpty(staffData.AdminPassword))
             {
-                if (staffData.AdminEmail == "Roger@gamil.com" && staffData.AdminPassword == "Roger@123")
+                if (staffData.AdminName == "Sandhya" && staffData.AdminPassword == "Sandy@1")
                 {
                     var claims = new[]
                     {
                 new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                new Claim("AdminId", "1001"),
-                new Claim("Admin_name", staffData.AdminName),
-                new Claim("Admin_Password", staffData.AdminPassword),
+                new Claim("Admin_Id", "1"), // Set the admin ID accordingly
+                new Claim("AdminName", staffData.AdminName),
+                new Claim("AdminPassword", staffData.AdminPassword),
                 new Claim(ClaimTypes.Role, AdminRole)
             };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]));
@@ -159,7 +159,8 @@ namespace HospitalBB.Controller
 
         private async Task<Admin> GetStaff(string adminName, string adminPassword)
         {
-            return await _context.Admins.FirstOrDefaultAsync(s => s.AdminEmail == adminName && s.AdminPassword == adminPassword);
+            return await _context.Admins.FirstOrDefaultAsync(s => s.AdminName == adminName && s.AdminPassword == adminPassword);
         }
-    }
+
+}
 }

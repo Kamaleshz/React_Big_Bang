@@ -19,7 +19,7 @@ namespace HospitalBB.Controller
             this.doctor = doctor;
 
         }
-        //[Authorize(Roles ="Doctor,Admin,Patient")]
+        [Authorize(Roles ="Doctor,Admin,Patient")]
         [HttpGet]
         public IEnumerable<Doctor>? Get()
         {
@@ -27,7 +27,7 @@ namespace HospitalBB.Controller
             return doctor.GetDoctors();
         }
 
-        //[Authorize(Roles = "Doctor,Admin,Patient")]
+        [Authorize(Roles = "Doctor,Admin,Patient")]
         [HttpGet("{Doctor_Id}")]
         public Doctor? Doctor_Id(int Doctor_Id)
         {
@@ -53,7 +53,7 @@ namespace HospitalBB.Controller
             }
         }
 
-        //[Authorize(Roles = "Doctor,Admin")]
+        [Authorize(Roles = "Doctor,Admin")]
         [HttpPut("{DocId}")]
         public async Task<ActionResult<Doctor>> Put(int DocId, [FromForm] Doctor doc, IFormFile imageFile)
         {
@@ -74,13 +74,14 @@ namespace HospitalBB.Controller
             }
         }
 
-        //[Authorize(Roles = "Doctor,Admin")]
+        [Authorize(Roles = "Doctor,Admin")]
         [HttpDelete("{Doctor_Id}")]
         public Doctor? DeleteCake(int Doctor_Id)
         {
             return doctor.DeleteDoctor(Doctor_Id);
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpPut("Update status")]
         public async Task<ActionResult<UpdateStatus>> UpdateStatus(UpdateStatus status)
         {
@@ -92,6 +93,7 @@ namespace HospitalBB.Controller
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("Decline Doctor")]
         public async Task<ActionResult<UpdateStatus>> UpdateDeclineStatus(UpdateStatus status)
         {
@@ -103,6 +105,7 @@ namespace HospitalBB.Controller
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("Requested status")]
         public async Task<ActionResult<UpdateStatus>> GetRequestedDoctors()
         {
@@ -114,6 +117,7 @@ namespace HospitalBB.Controller
             return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("Accepted status")]
         public async Task<ActionResult<UpdateStatus>> GetAcceptedDoctors()
         {
