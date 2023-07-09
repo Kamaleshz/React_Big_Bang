@@ -21,7 +21,7 @@ namespace HospitalBB.Controller
             this.doctor = doctor;
 
         }
-        //[Authorize(Roles ="Doctor,Admin,Patient")]
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public IEnumerable<Doctor>? Get()
         {
@@ -83,7 +83,7 @@ namespace HospitalBB.Controller
             return doctor.DeleteDoctor(Doctor_Id);
         }
 
-        //[Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
         [HttpPut("Update status")]
         public async Task<ActionResult<UpdateStatus>> UpdateStatus(UpdateStatus status)
         {
@@ -119,7 +119,6 @@ namespace HospitalBB.Controller
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("Accepted status")]
         public async Task<ActionResult<UpdateStatus>> GetAcceptedDoctors()
         {

@@ -54,8 +54,13 @@ namespace HospitalBB.Controller
                         claims,
                         expires: DateTime.UtcNow.AddDays(1),
                         signingCredentials: signIn);
+                    var response = new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        doctor = user.DocId
+                    };
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(response);
                 }
                 else
                 {
@@ -100,8 +105,13 @@ namespace HospitalBB.Controller
                         claims,
                         expires: DateTime.UtcNow.AddDays(1),
                         signingCredentials: signIn);
+                    var response = new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        patient = user.PatId
+                    };
 
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(response);
                 }
                 else
                 {
@@ -124,7 +134,7 @@ namespace HospitalBB.Controller
         {
             if (staffData != null && !string.IsNullOrEmpty(staffData.AdminName) && !string.IsNullOrEmpty(staffData.AdminPassword))
             {
-                if (staffData.AdminName == "Sandhya" && staffData.AdminPassword == "Sandy@1")
+                if (staffData.AdminName == "Madara@gmail.com" && staffData.AdminPassword == "Madara@123")
                 {
                     var claims = new[]
                     {

@@ -34,7 +34,6 @@ namespace HospitalBB.Controller
             }
         }
 
-        [Authorize(Roles = "Doctor,Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatientById(int id)
         {
@@ -52,6 +51,7 @@ namespace HospitalBB.Controller
                 return StatusCode(500, $"Error retrieving patient: {ex.Message}");
             }
         }
+
 
         [HttpPost]
         public async Task<ActionResult<Patient>> CreatePatient(Patient patient)
